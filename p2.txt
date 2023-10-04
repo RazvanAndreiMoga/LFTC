@@ -1,0 +1,9 @@
+let max(a,b,c) be(
+	perhaps largerEqual(a,b) also largerEqual(a,c):
+        	largest = a
+ 	maybe largerEqual(b,a) also largerEqual(b,c):
+        	largest = b
+    	otherwise:
+        	largest = c
+         
+    provide largest)
