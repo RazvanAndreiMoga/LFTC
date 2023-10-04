@@ -1,7 +1,0 @@
-let prime(n) be(
-	asLongAs i wihin span(2,n/2)/
-		perhaps is(n%i,0)/
-			provde no
-		\
-	\
-	provide yes)
