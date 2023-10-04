@@ -1,6 +1,0 @@
-let sum(list) be(
-	create(sum,0)
-	asLongAs i within span(0,width(list))/
-		add(sum,list{i})
-	\
-)
