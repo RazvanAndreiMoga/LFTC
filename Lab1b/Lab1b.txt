@@ -25,6 +25,10 @@ intconst = "0" | ["+"|"-"]non_zero_digit{digit}
 strconst = """{letter|digit|"_"|" "}"""
 charconst = "’"(letter|digit|special_char)"’"
 special_char = "+" | "-" | "*" | "<" | ">" | ...
+
+
+Syntax:
+
 program ::= "start" compound_statement
 statement ::= (declaration | assignment_statement | if_statement |
 while_statement | return_statement | for_statement | iostmt)
@@ -52,6 +56,10 @@ for_header ::= "(" "int" assignment_statement ";" condition ";" assignment_state
 
 condition ::= expression relation expression
 relation ::= "<" | "<=" | "==" | "!=" | ">=" | ">"
+
+
+Token:
+
 A
 B
 C
