@@ -53,7 +53,7 @@ public class MyScanner {
 
 
     /**
-     * Practically, this method is some sort of wrapper for the real tokenize method, which prepares the array for the
+     * This method is a wrapper for the real tokenize method, which prepares the array for the
      * real process of splitting the tokens.
      * In this method, we call the method for reading the content of the file, we concatenate the separators into a
      * simple string, we use that string to split the program into a list of string where we have stored the tokens +
@@ -99,7 +99,7 @@ public class MyScanner {
      * -- b) if we have a char, we compute the char
      * -- c) if the token is different from " " (space) it means we found a token and we add it to our final list + the line and the column on which it is situated and we increase the column number
      *
-     * Basically, in this method we go through the elements of the program and for each of them, if they compose a token/identifier/constant we add it
+     * In this method we go through the elements of the program and for each of them, if they compose a token/identifier/constant we add it
      * to the final list and we compute also the line number on which each of the are situated. (we somehow tokenize the elems which compose the program)
      * @param tokensToBe - the List of program elements (strings) + the separators
      * @return - the list of pairs composed of tokens/identifiers/constants + a pair which is composed from the number of the line and the number of column on which them were placed
