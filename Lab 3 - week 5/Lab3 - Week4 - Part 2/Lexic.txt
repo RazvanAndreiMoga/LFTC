@@ -1,0 +1,27 @@
+Alphabet:
+a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+b. Underline character '_';
+c. Decimal digits (0-9);
+
+Lexic:
+
+a. Special symbols, representing:
+
+- operators + - * / == < <= = >= !=
+- separators ( ) [ ] { } : ; space newline
+- reserved words: array char else if int string read return start for while write
+
+b. Identifiers:
+
+- A sequence of letters and digits or "_" such that the first character is "_" or a letter; the rule is:
+  identifier = ("_" | letter){letter|digit|"_"}
+  letter = "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+  digit = "0" | non_zero_digit
+  non_zero_digit = "1" | "2" | ... | "9"
+
+c. Constants:
+
+  intconst = "0" | ["+"|"-"]non_zero_digit{digit}
+  strconst = """{letter|digit|"_"|" "}"""
+  charconst = "'"(letter|digit|special_char)"'"
+  special_char = "+" | "-" | "*" | "<" | ">" | ...
