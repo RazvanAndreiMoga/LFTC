@@ -1,0 +1,133 @@
+22
+program
+statement
+declaration_statement
+assignment_statement
+if_statement
+for_statement
+while_statement
+read_statement
+write_statement
+variable_declaration_statement
+array_declaration_statement
+identifier_list
+type
+expression
+int_expression
+char_expression
+string_expression
+condition
+relation
+range_list
+read_helper
+write_helper
+38
+identifier
+constant
+main
+(
+)
+{
+}
+;
+:
+=
+[
+]
+,
++
+-
+*
+/
+%
+Integer
+Char
+String
+if
+else
+>
+>=
+<
+<=
+==
+!=
+while
+in
+range
+for
+read
+write
+>>
+<<
+_
+69
+program -> main ( ) { statement }
+statement -> declaration_statement
+statement -> declaration_statement statement
+statement -> assignment_statement
+statement -> assignment_statement statement
+statement -> if_statement
+statement -> if_statement statement
+statement -> for_statement
+statement -> for_statement statement
+statement -> while_statement
+statement -> while_statement statement
+statement -> read_statement
+statement -> read_statement statement
+statement -> write_statement
+statement -> write_statement statement
+declaration_statement -> variable_declaration_statement
+declaration_statement -> array_declaration_statement
+variable_declaration_statement -> identifier_list : type ;
+variable_declaration_statement -> identifier_list : type = expression ;
+array_declaration_statement -> identifier_list : type [ ] ;
+identifier_list -> identifier
+identifier_list -> identifier , identifier_list
+type -> Integer
+type -> Char
+type -> String
+expression -> int_expression
+expression -> string_expression
+expression -> char_expression
+int_expression -> constant
+int_expression -> constant + int_expression
+int_expression -> constant - int_expression
+int_expression -> constant * int_expression
+int_expression -> constant / int_expression
+int_expression -> constant % int_expression
+int_expression -> identifier
+int_expression -> identifier + int_expression
+int_expression -> identifier - int_expression
+int_expression -> identifier * int_expression
+int_expression -> identifier / int_expression
+int_expression -> identifier % int_expression
+string_expression -> constant
+char_expression -> constant
+string_expression -> identifier
+char_expression -> identifier
+assignment_statement -> identifier = identifier ;
+assignment_statement -> identifier = expression ;
+if_statement -> if ( condition ) { statement }
+if_statement -> if ( condition ) { statement } else { statement }
+condition -> expression relation expression
+relation -> >
+relation -> >=
+relation -> <
+relation -> <=
+relation -> ==
+relation -> !=
+while_statement -> while ( condition ) { statement }
+for_statement -> for identifier in identifier { statement }
+for_statement -> for identifier in range ( range_list ) { statement }
+range_list -> constant
+range_list -> constant , constant
+range_list -> constant , constant , constant
+read_helper -> >> identifier
+read_helper -> >> identifier read_helper
+read_statement -> read read_helper ;
+write_helper -> << constant
+write_helper -> << constant write_helper
+write_helper -> << identifier
+write_helper -> << identifier write_helper
+write_statement -> write write_helper ;
+program
