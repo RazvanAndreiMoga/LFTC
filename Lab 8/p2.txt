@@ -1,0 +1,14 @@
+main () { 
+	_first, _second: Integer; 
+	read >> _first >> _second; 
+
+	while (_first > _second) {
+		if (_first > _second) {
+			_first = _first - _second;
+		} else {
+			_second = _second - _first;
+		}
+	}
+
+	write << _first;
+}

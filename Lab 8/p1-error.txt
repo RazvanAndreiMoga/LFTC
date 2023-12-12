@@ -1,0 +1,16 @@
+main () { 
+	_first, _second: Integer; 
+	read >> _first >> _second; 
+	_maxim: Integer = -1;
+	_text: String = "ana;
+
+	if (_first > _second) {
+		_maxim = _first;
+	} else {
+		_maxim = _second;
+	}
+
+	_text = _text + The maximum number is + _maxim;
+	
+	write >> _maxim;
+}
