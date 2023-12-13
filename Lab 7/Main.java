@@ -1,6 +1,9 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javafx.animation.ScaleTransition;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +17,7 @@ public class Main {
         System.out.println("5. Print start symbol.");
         System.out.println("6. Verify if CFG.");
         System.out.println("7. Parse sequence.");
+        System.out.println("8. Write to file out1.txt");
         System.out.println("0. Exit.\n");
     }
 
@@ -62,7 +66,7 @@ public class Main {
                     break;
                 case "4":
                     String nonTerminal = "";
-                    System.out.print("nonTerminal = ");
+
                     try {
                         nonTerminal = reader.readLine();
                     } catch (IOException ioException) {
@@ -137,6 +141,80 @@ public class Main {
                     } else {
                         System.out.println("The sequence is not correct!\n");
                     }
+
+                    break;
+                case "8":
+                    try {
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("src/out1.txt"));
+                        writer.write(grammar.getNonTerminals().size() + "\n" + grammar.getNonTerminals() + "\n");
+                        writer.write(grammar.getTerminals().size() + "\n" + grammar.getTerminals() + "\n");
+                        String sequence_text = "";
+                        writer.write(grammar.getProductions().size() + grammar.printProductions() + "\n");
+                        BufferedReader reader_sequence = new BufferedReader(new FileReader("src/seq.txt"));
+                        try {
+                            sequence_text = reader_sequence.readLine();
+                        } catch(IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        String[] split1 = sequence_text.split(" ");
+                        List<String> values1 = new ArrayList<>();
+                        for(int i = 0; i < split1.length; ++i) {
+                            if(split1[i].charAt(0) != '"') {
+                                values1.add(split1[i]);
+                            } else {
+                                StringBuilder stringBuilder = new StringBuilder();
+                                stringBuilder.append(split1[i]).append(" ");
+
+                                if(!split1[i].endsWith("\"")) {
+                                    i++;
+                                    while(i < split1.length) {
+                                        if (split1[i].endsWith("\"")) {
+                                            stringBuilder.append(split1[i]);
+                                            break;
+                                        } else {
+                                            stringBuilder.append(split1[i]).append(" ");
+                                        }
+                                        i++;
+                                    }
+                                }
+
+                                values1.add(stringBuilder.toString());
+                            }
+                        }
+
+                        DescendentRecursiveParser descendentRecursiveParser1 = new DescendentRecursiveParser();
+
+                        boolean ok1 = true;
+                        for(String value: values1) {
+                            if (!descendentRecursiveParser1.isIdentifier(value) &&
+                                    !descendentRecursiveParser1.isConstant(value) && !grammar.getTerminals().contains(value)) {
+                                ok1 = false;
+                                System.out.println(value);
+                                break;
+                            }
+                        }
+
+                        if(ok1) {
+                            System.out.println();
+                            descendentRecursiveParser1.descendantRecursiveParserAlgorithm(values1.toArray(new String[0]), grammar);
+                            String table = "";
+                            BufferedReader reader_sequence1 = new BufferedReader(new FileReader("src/table.txt"));
+                            try {
+                                table = new String(Files.readAllBytes(Paths.get("src/table.txt")), StandardCharsets.UTF_8);
+                            } catch(IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                            writer.write(table);
+                            System.out.println();
+                        } else {
+                            System.out.println("The sequence is not correct!\n");
+                        }
+                        writer.close();
+                    }
+                    catch(IOException exception){
+                        exception.printStackTrace();
+                    }
+
 
                     break;
                 case "0":
