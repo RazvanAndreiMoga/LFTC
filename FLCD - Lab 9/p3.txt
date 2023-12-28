@@ -1,0 +1,17 @@
+main () {
+	_n, _element: Integer;
+	_array: Integer[];
+	read >> _n;
+
+	for _i in range(_n) {
+		read >> _array[_i];
+	}
+
+	_sum: Integer = 0;
+
+	for _element in _array {
+		_sum = _sum + _element;
+	}
+
+	write << _sum;
+}

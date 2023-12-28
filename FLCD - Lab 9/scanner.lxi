@@ -1,0 +1,86 @@
+%{
+#include <stdio.h>
+#include <string.h>
+#include "parser.tab.h"
+int no_of_lines = 0;
+%}
+
+%option noyywrap
+%option caseless
+
+DIGIT [0-9]
+NZ_DIGIT [1-9]
+LETTER [a-zA-Z]
+INTEGER_CONSTANT [+-]?{NZ_DIGIT}{DIGIT}*|0
+STRING_CONSTANT \"({LETTER}|{DIGIT})*\"
+CHAR_CONSTANT \'({DIGIT}|{LETTER})\'
+IDENTIFIER "_"{LETTER}({LETTER}|{DIGIT})*
+CONSTANT {INTEGER_CONSTANT}|{STRING_CONSTANT}|{CHAR_CONSTANT}
+
+%%
+
+"read" { printf("%s - reserved word\n", yytext); return READ; }
+"write" { printf("%s - reserved word\n", yytext); return WRITE; }
+"if" { printf("%s - reserved word\n", yytext); return IF; }
+"else" { printf("%s - reserved word\n", yytext); return ELSE; }
+"while" { printf("%s - reserved word\n", yytext); return WHILE; }
+"for" { printf("%s - reserved word\n", yytext); return FOR; }
+"in" { printf("%s - reserved word\n", yytext); return IN; }
+"range" { printf("%s - reserved word\n", yytext); return RANGE; }
+"Integer" { printf("%s - reserved word\n", yytext); return INTEGER; }
+"String" { printf("%s - reserved word\n", yytext); return STRING; }
+"Char" { printf("%s - reserved word\n", yytext); return CHAR; }
+"main" { printf("%s - reserved word\n", yytext); return MAIN; }
+
+{IDENTIFIER} { printf("%s - identifier\n", yytext); return IDENTIFIER; }
+
+{INTEGER_CONSTANT} { printf("%s - int_constant\n", yytext); return INT_CONSTANT; }
+
+{STRING_CONSTANT} { printf("%s - string_constant\n", yytext); return STRING_CONSTANT; }
+
+{CHAR_CONSTANT} { printf("%s - char_constant\n", yytext); return CHAR_CONSTANT; }
+
+"+" { printf("%s - operator\n", yytext); return PLUS; }
+"-" { printf("%s - operator\n", yytext); return MINUS; }
+"*" { printf("%s - operator\n", yytext); return MULTIPLICATION; }
+"/" { printf("%s - operator\n", yytext); return DIVISION; }
+"%" { printf("%s - operator\n", yytext); return MODULO; }
+"=" { printf("%s - operator\n", yytext); return ASSIGNMENT; }
+">" { printf("%s - operator\n", yytext); return GT; }
+">=" { printf("%s - operator\n", yytext); return GTE; }
+"<" { printf("%s - operator\n", yytext); return LT; }
+"<=" { printf("%s - operator\n", yytext); return LTE; }
+"==" { printf("%s - operator\n", yytext); return EQ; }
+"!=" { printf("%s - operator\n", yytext); return NOT_EQ; }
+
+">>" { printf("%s - separator\n", yytext); return READ_SYMBOL; }
+"<<" { printf("%s - separator\n", yytext); return WRITE_SYMBOL; }
+";" { printf("%s - separator\n", yytext); return SEMICOLON; }
+":" { printf("%s - separator\n", yytext); return COLON; }
+"(" { printf("%s - separator\n", yytext); return OPEN_ROUND_BRACKET; }
+")" { printf("%s - separator\n", yytext); return CLOSED_ROUND_BRACKET; }
+"[" { printf("%s - separator\n", yytext); return OPEN_SQUARE_BRACKET; }
+"]" { printf("%s - separator\n", yytext); return CLOSED_SQUARE_BRACKET; }
+"{" { printf("%s - separator\n", yytext); return OPEN_CURLY_BRACKET; }
+"}" { printf("%s - separator\n", yytext); return CLOSED_CURLY_BRACKET; }
+"," { printf("%s - separator\n", yytext); return COMMA; }
+
+[ \t]+ {} /* elimina spatii */
+
+\n ++no_of_lines;
+
+[+-]0 { printf("Illegal integer constant at line %d: a number cannot start with 0.\n", no_of_lines); return -1; }
+
+0{DIGIT}* { printf("Illegal integer constant at line %d: a number cannot start with 0.\n", no_of_lines); return -1; }
+
+\'[^({DIGIT}|{LETTER})]\' { printf("Illegal char constant at line %d: a character should be a digit or a letter.\n", no_of_lines); return -1; }
+
+\'({DIGIT}|{LETTER}) { printf("Illegal char constant at line %d: unclosed quotes.\n", no_of_lines); return -1; }
+
+\"(({LETTER}|{DIGIT})*[^({LETTER}|{DIGIT})]({LETTER}|{DIGIT})*)*\" { printf("Illegal string constant at line %d: a string should contain only digits and letters.\n", no_of_lines); return -1; }
+
+\"({LETTER}|{DIGIT})* { printf("Illegal string constant at line %d: unclosed quotes.\n", no_of_lines); return -1; }
+
+. { printf("Illegal token at line %d.\n", no_of_lines); return -1; }
+	
+%%

@@ -1,0 +1,15 @@
+main () {
+	_first, _second: Integer; 
+	read >> _first >> _second; 
+	_maxim: Integer =  -1+-2;
+	_text: String = "ana";
+	_character: Char = 'a';
+
+	if (_first > _second) {
+		_maxim = _first;
+	} else {
+		_maxim = _second;
+	}
+
+	write << _maxim;
+}
